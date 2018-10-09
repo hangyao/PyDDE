@@ -1,6 +1,5 @@
 from distutils.core import setup, Extension
 from distutils.sysconfig import get_config_var
-import numpy
 
 setup(name="PyDDE",
       version="0.2.2",
