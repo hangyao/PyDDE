@@ -1,6 +1,16 @@
 from distutils.core import setup, Extension
 from distutils.sysconfig import get_config_var
-import numpy
+
+try:
+    from numpy import get_include
+    INCLUDE_DIRS = [get_include()]
+except ImportError:
+    warn("numpy not found!")
+    INCLUDE_DIRS = []
+      
+REQUIREMENTS = [
+    'numpy',
+]
 
 setup(name="PyDDE",
       version="0.2.2",
@@ -20,13 +30,14 @@ PyDDE can solve a wide range of ODE and DDE models with discontinuities that may
       platforms="Any",
       license="GPL",
       keywords="delay differential equation solver dde switches solv95 ddesolve pydde",
-      maintainer="Benjamin J. Cairns",
-      maintainer_email="ben.cairns@ceu.ox.ac.uk",
-      url="http://users.ox.ac.uk/~clme1073/python/PyDDE/",
+      maintainer="Chris Yao",
+      maintainer_email="",
+      url="http://github.com/hangyao/PyDDE/",
+      requires=REQUIREMENTS,
       py_modules=['PyDDE.pydde'],
       ext_modules=[Extension("PyDDE.ddesolve",
                              ["PyDDE/src/ddeq.c", "PyDDE/src/ddesolve95.c", "PyDDE/src/wrapper.c"],
-                             include_dirs=[numpy.get_include()],
+                             # include_dirs=[numpy.get_include()],
                              # Not sure why, but the next line doesn't work
                              # with some Python versions. Removing it is OK.
                              #libraries=["python"+get_config_var('VERSION')],
@@ -34,5 +45,7 @@ PyDDE can solve a wide range of ODE and DDE models with discontinuities that may
                              )
                   ],
       packages=['PyDDE'],
+      include_package_data=True,
+      include_dirs=INCLUDE_DIRS,
       package_data={'PyDDE' : ['doc/*.pdf'], 'PyDDE' : ['test/*.py']}
       )
