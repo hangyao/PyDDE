@@ -5,7 +5,6 @@ try:
     from numpy import get_include
     INCLUDE_DIRS = [get_include()]
 except ImportError:
-    warn("numpy not found!")
     INCLUDE_DIRS = []
       
 REQUIREMENTS = [
