@@ -1,5 +1,6 @@
-from distutils.core import setup, Extension
-from distutils.sysconfig import get_config_var
+# from distutils.core import setup, Extension
+from setuptools import setup, Extension
+#from distutils.sysconfig import get_config_var
 
 try:
     from numpy import get_include
